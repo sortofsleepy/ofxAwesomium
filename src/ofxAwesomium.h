@@ -11,6 +11,7 @@
 
 #include <Awesomium/WebCore.h>
 #include <Awesomium/STLHelpers.h>
+#include <Awesomium/BitmapSurface.h>
 #include "ofMain.h"
 
 #include <vector>
@@ -40,6 +41,11 @@ class ofxAwesomium{
     //dealing with filepaths
     ofFilePath fs;
     
+    //texture if we only want to deal with one view
+    ofTexture viewData;
+    
+    //set the location
+    ofVec2f loc;
 public:
     ofxAwesomium();
     
@@ -55,19 +61,27 @@ public:
     void update();
     void updateCluster();
     
-    void setWebView(const char * url,int width=WEBVIEW_DEFAULT_WIDTH,int height=WEBVIEW_DEFAULT_HEIGHT);
-    void makeWebView(const char * url,int width=WEBVIEW_DEFAULT_WIDTH,int height=WEBVIEW_DEFAULT_HEIGHT);
+    void setWebView(string url,int width=WEBVIEW_DEFAULT_WIDTH,int height=WEBVIEW_DEFAULT_HEIGHT);
+    void makeWebView(string url,int width=WEBVIEW_DEFAULT_WIDTH,int height=WEBVIEW_DEFAULT_HEIGHT);
     
     
-    void draw();
+    void draw(float x, float y, float w, float h);
+    void draw(float x, float y);
+    void draw(float x, float y, float z, float w, float h);
+    void draw(float x, float y, float z);
 
+    /**======================
+     FOR USE WITH CUSTOM DATASOURCES
+     ==========================*/
+    
+    
     /**======================
      CONVERSION FOR RENDERING
      ==========================*/
     //converts the webview surface to ofTexture;
     ofTexture createTexture(Awesomium::WebView view);
     
-    
+    virtual void setTexture(Awesomium::WebView view);
     
 };
 
